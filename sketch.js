@@ -1,5 +1,3 @@
-
-
 /** @type {Font} */
 let font;
 
@@ -13,12 +11,25 @@ function setup() {
 
   rectMode(CENTER);
   angleMode(DEGREES);
+  colorMode(HSB, 360, 100, 100)
   //noLoop(); // Opzionale
 }
 
 function draw() {
-    clear(); // Non cancellare!
+  clear(); // Non cancellare!
   background("black");
+
+  //小球
+  push();
+  //frameRate(5)
+  for (let i = 0; i < 10; i++) {
+    let x = random(0, width);
+    let y = random(0,height);
+    noStroke();
+    fill(random(0, 80), 100, 100);
+    ellipse(x, y, 100);
+  }
+  pop();
 
   // testo
 
@@ -38,7 +49,7 @@ function draw() {
   noFill();
  // stroke("white");
   colorMode(HSB, 360, 100, 100);
-  strokeWeight(2); // 更粗的描边
+  strokeWeight(2); 
 
 for (let i = 0; i < points.length; i++) {
   let p = points[i];
@@ -58,5 +69,8 @@ for (let i = 0; i < points.length; i++) {
  //   ellipse(0, 0, sin(frameCount)*10)
  //   pop()
  }
+
+
+
 
 }
