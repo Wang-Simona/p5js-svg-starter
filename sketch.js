@@ -6,7 +6,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 400, "svg");
+  createCanvas(595, 842, "svg");
   addDownloadButton();
 
   rectMode(CENTER);
@@ -34,7 +34,7 @@ function draw() {
   // testo
 
   let testo = "HAPPY";
-  let testo_x = width*0.1;
+  let testo_x = width*0.2;
   let testo_y = height/2;
   let font_size = 90;
 
