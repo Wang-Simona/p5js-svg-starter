@@ -1,13 +1,10 @@
-const testo = "HAPPY";
-const fontSize = 120;
-const parti = 40;
-const sfasamento = 4;
+
 
 /** @type {Font} */
-let font_ACTIONIS;
+let font;
 
 function preload() {
-  font_ACTIONIS = loadFont("./fonts/ACTIONIS.TTF");
+  font = loadFont("./fonts/Adobe-Jenson-Pro-Bold-Caption.ttf");
 }
 
 function setup() {
@@ -16,41 +13,50 @@ function setup() {
 
   rectMode(CENTER);
   angleMode(DEGREES);
-
-  frameRate(30); // 控制动画速度
+  //noLoop(); // Opzionale
 }
 
 function draw() {
-  background(255); // 白色背景
+    clear(); // Non cancellare!
+  background("black");
 
-  textFont(font_ACTIONIS);
-  textLeading(fontSize);
-  textSize(fontSize);
+  // testo
 
-  const text_width = textWidth(testo);
-  const h_parti = fontSize / parti;
+  let testo = "HAPPY";
+  let testo_x = width*0.1;
+  let testo_y = height/2;
+  let font_size = 90;
 
-  noStroke();
+  textFont(font);
+  textSize(font_size);
+  // text(testo, testo_x, testo_y);
 
-  for (let i = 0; i < parti; i++) {
-    // 渐变色：用 HSB 模式更好控制
-    colorMode(HSB, 360, 100, 100);
-    fill((i * 360) / parti, 80, 80); // 渐变色彩虹风格
-    colorMode(RGB, 255); // 恢复 RGB 模式
+  let points = font.textToPoints(testo, testo_x, testo_y, font_size, {
+  sampleFactor: 0.2,
+  });
+  
+  noFill();
+ // stroke("white");
+  colorMode(HSB, 360, 100, 100);
+  strokeWeight(2); // 更粗的描边
 
-    push();
-    translate(text_width / 2, 0);
-    translate(
-      random(-sfasamento, sfasamento),
-      random(-sfasamento, sfasamento)
-    );
+for (let i = 0; i < points.length; i++) {
+  let p = points[i];
+  // 更强烈的彩虹流动（乘以倍数），也可以调整 3 为更高值
+  let hue = (map(i, 0, points.length, 0, 360) + frameCount * 3) % 360;
+  stroke(hue, 100, 100);
 
-    beginClip();
-    rect(0, i * h_parti + h_parti / 2, text_width, h_parti);
-    endClip();
+  push();
+  translate(p.x, p.y);
+  ellipse(0,0,sin(frameCount)*10);
+  pop();
 
-    text(testo, -text_width / 2, fontSize);
 
-    pop();
-  }
+ // for (let p of points) {
+ //   push()
+ //   translate(p.x, p.y)
+ //   ellipse(0, 0, sin(frameCount)*10)
+ //   pop()
+ }
+
 }
