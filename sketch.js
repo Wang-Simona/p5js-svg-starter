@@ -1,15 +1,13 @@
-const testo = "WTF";
+const testo = "HAPPY";
 const fontSize = 120;
 const parti = 40;
 const sfasamento = 4;
 
-//
-
 /** @type {Font} */
-let font;
+let font_ACTIONIS;
 
 function preload() {
-  font = loadFont("./fonts/Adobe-Jenson-Pro-Bold-Caption.ttf");
+  font_ACTIONIS = loadFont("./fonts/ACTIONIS.TTF");
 }
 
 function setup() {
@@ -19,13 +17,13 @@ function setup() {
   rectMode(CENTER);
   angleMode(DEGREES);
 
-  noLoop(); // Opzionale
+  frameRate(30); // 控制动画速度
 }
 
 function draw() {
-  clear(); // Non cancellare!
+  background(255); // 白色背景
 
-  textFont(font);
+  textFont(font_ACTIONIS);
   textLeading(fontSize);
   textSize(fontSize);
 
@@ -33,18 +31,25 @@ function draw() {
   const h_parti = fontSize / parti;
 
   noStroke();
-  fill(0);
 
   for (let i = 0; i < parti; i++) {
+    // 渐变色：用 HSB 模式更好控制
+    colorMode(HSB, 360, 100, 100);
+    fill((i * 360) / parti, 80, 80); // 渐变色彩虹风格
+    colorMode(RGB, 255); // 恢复 RGB 模式
+
     push();
     translate(text_width / 2, 0);
-    translate(random(-sfasamento, sfasamento), 0);
+    translate(
+      random(-sfasamento, sfasamento),
+      random(-sfasamento, sfasamento)
+    );
 
     beginClip();
     rect(0, i * h_parti + h_parti / 2, text_width, h_parti);
     endClip();
 
-    textSVG(testo, -text_width / 2, fontSize);
+    text(testo, -text_width / 2, fontSize);
 
     pop();
   }
